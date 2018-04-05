@@ -3,7 +3,7 @@
 
 
 ### ------------ Data handling ----------------
-def save_images(X_train, Y_train, x_str = 'images.pickle', y_str = 'labels.pickle')
+def save_images(X_train, Y_train, x_str = 'images.pickle', y_str = 'labels.pickle'):
     
     import pickle
     with open(x_str, 'wb') as handle:
@@ -12,7 +12,7 @@ def save_images(X_train, Y_train, x_str = 'images.pickle', y_str = 'labels.pickl
     with open(y_str, 'wb') as handle:
         pickle.dump(Y_train, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-def load_images(x_str = 'images.pickle', y_str = 'labels.pickle')
+def load_images(x_str = 'images.pickle', y_str = 'labels.pickle'):
     import pickle
 
     with open('images.pickle', 'rb') as handle:
@@ -76,23 +76,23 @@ def get_bw_idx(img_list, col=False):
 ## Create the minimum number of stepxstep patches to account for the full image
 
 # Get the X/Y range of indices over which patches can be extracted
-def get_x_rng(img, step=256):
+def get_x_rng(img, step):
     x_rng = range(0, img.shape[0], step)
     if x_rng[-1] > img.shape[0]-step:
         x_rng[-1] = img.shape[0]-step
     return x_rng
         
-def get_y_rng(img, step=256):
+def get_y_rng(img, step):
     y_rng = range(0, img.shape[1], step)
     if y_rng[-1] > img.shape[1]-step:
         y_rng[-1] = img.shape[1]-step
     return y_rng
 
 # Extract patches of given size
-def get_patches(img, step = 128, one_only=False):
+def get_patches(img, step, one_only=False):
     
-    x_rng = get_x_rng(img) 
-    y_rng = get_y_rng(img)
+    x_rng = get_x_rng(img, step) 
+    y_rng = get_y_rng(img, step)
     
     # If only using one patch - try to get as central as you can
     if one_only:
