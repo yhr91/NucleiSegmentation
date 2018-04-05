@@ -1,4 +1,4 @@
 # NucleiSegmentation
-Improving Accuracy of Nuclei Segmentation by Reducing Histological Image Variability - BMI 260 Spring 2017 Final Project
+Improving Accuracy of Nuclei Segmentation by Reducing Histological Image Variability -BMI 260 Spring 2017 Final Project
 
 Authors: Yusuf Roohani, Eric Kiss
