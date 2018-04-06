@@ -1,6 +1,18 @@
 ## Helper functions for Nuclei segmentation work
 ## yr897021
 
+import os
+import sys
+import random
+import warnings
+
+import numpy as np
+import pandas as pd
+
+import matplotlib.pyplot as plt
+
+from skimage.morphology import label
+
 
 ### ------------ Data handling ----------------
 def save_images(X_train, Y_train, x_str = 'images.pickle', y_str = 'labels.pickle'):
@@ -30,7 +42,7 @@ def overlay(img, img_ROI):
     return np.dstack([img_norm, img_norm, img_ROI])
 
 ### ------------ Preprocessing ----------------
-def get_bw(img_list, col=False):
+def get_bw(img_list, map_list, col=False):
     ## Returns single channel b/w images
 
     imgs = []
@@ -43,11 +55,11 @@ def get_bw(img_list, col=False):
         
         if(mono and not col):
             imgs.append(image[:,:,0])
-            maps.append(Y_train[idx])
+            maps.append(map_list[idx])
             
         elif(not mono and col):
             imgs.append(image[:,:,:3])
-            maps.append(Y_train[idx])
+            maps.append(map_list[idx])
             
     return imgs, maps
 
@@ -119,18 +131,7 @@ def find_bfield(img_list, invert=False, thresh=150):
 
 ### ------------ Network/Training ----------------
 
-# Define IoU metric - This needs to be fixed
 
-def mean_iou(y_true, y_pred):
-    prec = []
-    for t in np.arange(0.5, 1.0, 0.05):
-        y_pred_ = tf.to_int32(y_pred > t)
-        score, up_opt = tf.metrics.mean_iou(y_true, y_pred_, 2)
-        K.get_session().run(tf.local_variables_initializer())
-        with tf.control_dependencies([up_opt]):
-            score = tf.identity(score)
-        prec.append(score)
-    return K.mean(K.stack(prec), axis=0)
 
 ### ------------ Result submission ----------------
 
