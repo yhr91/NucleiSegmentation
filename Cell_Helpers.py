@@ -110,11 +110,17 @@ def get_patches(img, step, one_only=False):
     if one_only:
         x_rng = [x_rng[len(x_rng)/2]]
         y_rng = [y_rng[len(y_rng)/2]]
-
+        
+        #Afterthought check condition
+        x=x_rng[0]; y=y_rng[0]
+        if np.mean(img[x:x+step, y:y+step])<15:
+            x_rng = [0]; y_rng = [0]
+        
     patches = []
     for x in x_rng:
         for y in y_rng:
             patches.append(img[x:x+step,y:y+step])
+            
             
     return np.array(patches)
 
