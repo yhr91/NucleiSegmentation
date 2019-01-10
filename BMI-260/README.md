@@ -1,0 +1,1 @@
+Code used to compare the effects of stain normalization on the accuracy of nuclei segmentation algorithms. The results are published <a href=https://link.springer.com/chapter/10.1007%2F978-3-030-00949-6_1>here</a>
